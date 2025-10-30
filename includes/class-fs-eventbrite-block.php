@@ -72,7 +72,7 @@ class FS_Eventbrite_Block {
 			array(
 				array(
 					'slug'  => 'fluxstack',
-					'title' => __( 'Fluxstack', 'fluxstack-widgets' ),
+					'title' => __( 'Fluxstack', 'fs-eventbrite-widget' ),
 					'icon'  => null,
 				),
 			),

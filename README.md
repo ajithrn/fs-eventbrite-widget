@@ -276,12 +276,17 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and release notes.
 
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
-### Development Setup
+### Quick Start for Contributors
 
 1. Clone the repository
-2. Follow WordPress coding standards
-3. Test with different WordPress versions
-4. Submit pull request
+2. Install dependencies: `npm install`
+3. Start development build: `npm start`
+4. Make your changes following WordPress coding standards
+5. Build for production: `npm run build`
+6. Test thoroughly
+7. Submit pull request
+
+For detailed instructions, see [DEVELOPER.md](DEVELOPER.md).
 
 ## Support
 

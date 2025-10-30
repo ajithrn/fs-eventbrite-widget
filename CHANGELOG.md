@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2025-10-30
+
+### Security
+- **CRITICAL**: Fixed CSS injection vulnerability by replacing `wp_strip_all_tags()` with `safecss_filter_attr()`
+- **CRITICAL**: Improved HTML class sanitization by replacing `sanitize_text_field()` with `sanitize_html_class()`
+- Enhanced input validation and escaping throughout the plugin
+
+### Fixed
+- Text domain consistency - changed from `fluxstack-widgets` to `fs-eventbrite-widget` in block category
+
+### Added
+- GPL v2 LICENSE file
+- Comprehensive `readme.txt`
+- Updated `.gitignore`
+- Added DEVELOPER.md
+
+### Improved
+- Code security following WordPress.org guidelines
+- Documentation and inline code comments
+
 ## [2.0.0] - 2025-10-30
 
 ### Added

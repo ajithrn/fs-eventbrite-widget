@@ -3,7 +3,7 @@
  * Plugin Name: FluxStack Eventbrite Widget
  * Plugin URI: https://ajithrn.com/
  * Description: A WordPress plugin to easily integrate customizable Eventbrite buttons and widgets with shortcode support.
- * Version: 2.0.0
+ * Version: 2.1.0
  * Author: Ajith R N
  * Author URI: https://ajithrn.com
  * License: GPL v2 or later
@@ -26,7 +26,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('FS_EVENTBRITE_BUTTON_VERSION', '2.0.0');
+define('FS_EVENTBRITE_BUTTON_VERSION', '2.1.0');
 define('FS_EVENTBRITE_BUTTON_TEXT_DOMAIN', 'fs-eventbrite-widget');
 
 // Load block registration class
@@ -181,10 +181,10 @@ class FSEventbriteWidgetPlugin {
         $width = sanitize_text_field($atts['width']);
         $height = sanitize_text_field($atts['height']);
         $button_text = sanitize_text_field($atts['button_text']);
-        $button_class = sanitize_text_field($atts['button_class']);
-        $button_style = wp_strip_all_tags($atts['button_style']);
-        $container_class = sanitize_text_field($atts['container_class']);
-        $container_style = wp_strip_all_tags($atts['container_style']);
+        $button_class = sanitize_html_class($atts['button_class']);
+        $button_style = safecss_filter_attr($atts['button_style']);
+        $container_class = sanitize_html_class($atts['container_class']);
+        $container_style = safecss_filter_attr($atts['container_style']);
         
         // Build widget HTML
         $html = $this->build_widget_html($event_id, array(

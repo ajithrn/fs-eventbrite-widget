@@ -1,9 +1,50 @@
 # Changelog
 
-All notable changes to FluxStack Eventbrite Widget will be documented in this file.
+All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.2.0] - 2025-10-30
+
+### Added - Accessibility Improvements ♿
+
+#### Critical Accessibility Features
+- **Semantic HTML**: Replaced anchor tags with proper `<button>` elements for modal triggers
+- **ARIA Attributes**: Comprehensive ARIA labels and roles for screen reader support
+  - `aria-label` with descriptive text for all interactive elements
+  - `aria-haspopup="dialog"` for modal buttons
+  - `role="region"` for widget containers
+  - `role="alert"` and `aria-live="assertive"` for error messages
+  - `aria-busy` states for loading indicators
+- **Keyboard Navigation**: Full keyboard support with Enter and Space key handlers
+- **Focus Management**: 
+  - Visible focus indicators (3px blue outline with shadow)
+  - Focus return to trigger button after modal closes
+  - `:focus-visible` support for better UX
+- **Accessibility Stylesheet**: New `assets/css/fs-eventbrite-accessibility.css` with:
+  - WCAG AA compliant color contrast (4.54:1 ratio)
+  - Visible focus indicators
+  - High contrast mode support
+  - Reduced motion preferences
+  - Responsive touch targets (44x44px minimum on mobile)
+  - Loading state animations
+  - Print styles
+
+#### Enhanced User Experience
+- Loading states with `aria-busy` attributes
+- Screen reader announcements for dynamic content
+- Better error message accessibility
+- Mobile-friendly touch targets
+- Support for Windows High Contrast Mode
+- Respect for `prefers-reduced-motion` user preference
+
+### Changed
+- Modal trigger buttons now use semantic `<button>` elements instead of `<a>` tags
+- Error messages now include proper ARIA alert roles
+- Widget containers now have descriptive ARIA labels
+- Improved JavaScript for better keyboard event handling
+- Enhanced focus management in modal interactions
 
 ## [1.1.0] - 2025-01-30
 

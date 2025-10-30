@@ -167,6 +167,16 @@ The number `1917376307149` is your event ID.
 }
 ```
 
+## Accessibility
+
+**This plugin meets WCAG 2.1 Level AA accessibility standards.** ♿
+
+### Keyboard Shortcuts
+
+- **Tab:** Navigate to button
+- **Enter/Space:** Activate button
+- **Escape:** Close modal (in Eventbrite widget)
+
 ## Requirements
 
 - WordPress 5.0 or higher

@@ -3,7 +3,7 @@
  * Plugin Name: FluxStack Eventbrite Widget
  * Plugin URI: https://ajithrn.com/
  * Description: A WordPress plugin to easily integrate customizable Eventbrite buttons and widgets with shortcode support.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Ajith R N
  * Author URI: https://ajithrn.com
  * License: GPL v2 or later
@@ -26,7 +26,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('FS_EVENTBRITE_BUTTON_VERSION', '1.1.0');
+define('FS_EVENTBRITE_BUTTON_VERSION', '1.2.0');
 define('FS_EVENTBRITE_BUTTON_TEXT_DOMAIN', 'fs-eventbrite-widget');
 
 /**
@@ -101,7 +101,7 @@ class FSEventbriteWidgetPlugin {
     }
     
     /**
-     * Register scripts
+     * Register scripts and styles
      * 
      * @since 1.0.0
      */
@@ -114,10 +114,19 @@ class FSEventbriteWidgetPlugin {
             null,
             true
         );
+        
+        // Register widget styles
+        wp_register_style(
+            'fs-eventbrite-widget',
+            plugins_url('assets/css/fs-eventbrite-widget.css', __FILE__),
+            array(),
+            FS_EVENTBRITE_BUTTON_VERSION,
+            'all'
+        );
     }
     
     /**
-     * Enqueue scripts if shortcode is used
+     * Enqueue scripts and styles if shortcode is used
      * 
      * @since 1.0.0
      */
@@ -125,6 +134,7 @@ class FSEventbriteWidgetPlugin {
         // Only enqueue if shortcode was used on this page
         if ($this->shortcode_used) {
             wp_enqueue_script('fs-eventbrite-widgets');
+            wp_enqueue_style('fs-eventbrite-widget');
         }
     }
     
@@ -219,61 +229,93 @@ class FSEventbriteWidgetPlugin {
         $container_style = !empty($options['container_style']) ? $options['container_style'] . ';' : '';
         $container_style .= 'width: ' . $options['width'] . ';';
         
-        $html = '<div class="fs-eventbrite-widget-wrapper ' . esc_attr($options['container_class']) . '" style="' . esc_attr($container_style) . '">';
+        $html = '<div class="fs-eventbrite-widget-wrapper ' . esc_attr($options['container_class']) . '" style="' . esc_attr($container_style) . '" role="region" aria-label="' . esc_attr__('Eventbrite ticket widget', FS_EVENTBRITE_BUTTON_TEXT_DOMAIN) . '">';
         
         if ($options['modal']) {
             // Modal widget with customizable button
             $button_style = !empty($options['button_style']) ? $options['button_style'] : '';
             
-            $html .= '<a rel="nofollow" href="#" target="_self" ';
+            // Accessibility: Use button element instead of anchor, add ARIA attributes
+            $html .= '<button type="button" ';
             $html .= 'class="' . esc_attr($options['button_class']) . ' eventbrite-widget-modal-trigger-' . esc_attr($event_id) . '" ';
-            $html .= 'id="eventbrite-widget-modal-trigger-' . esc_attr($event_id) . '"';
+            $html .= 'id="eventbrite-widget-modal-trigger-' . esc_attr($event_id) . '" ';
+            $html .= 'aria-label="' . esc_attr(sprintf(__('%s - Opens ticket purchase dialog', FS_EVENTBRITE_BUTTON_TEXT_DOMAIN), $options['button_text'])) . '" ';
+            $html .= 'aria-haspopup="dialog"';
             if (!empty($button_style)) {
                 $html .= ' style="' . esc_attr($button_style) . '"';
             }
             $html .= '>';
-            $html .= '<span>' . esc_html($options['button_text']) . '</span>';
-            $html .= '</a>';
+            $html .= '<span aria-hidden="true">' . esc_html($options['button_text']) . '</span>';
+            $html .= '</button>';
             
-            // Widget initialization script
+            // Widget initialization script with accessibility enhancements
             $html .= '<script type="text/javascript">';
             $html .= '(function() {';
+            $html .= 'var triggerId = "eventbrite-widget-modal-trigger-' . esc_js($event_id) . '";';
+            $html .= 'var triggerElement = document.getElementById(triggerId);';
+            $html .= 'var widgetInitialized = false;';
             $html .= 'function initEventbriteWidget() {';
-            $html .= 'if (typeof window.EBWidgets !== "undefined") {';
+            $html .= 'if (typeof window.EBWidgets !== "undefined" && !widgetInitialized) {';
+            $html .= 'widgetInitialized = true;';
+            $html .= 'if (triggerElement) {';
+            $html .= 'triggerElement.setAttribute("aria-busy", "false");';
+            $html .= '}';
             $html .= 'window.EBWidgets.createWidget({';
             $html .= 'widgetType: "checkout",';
             $html .= 'eventId: "' . esc_js($event_id) . '",';
             $html .= 'modal: true,';
-            $html .= 'modalTriggerElementId: "eventbrite-widget-modal-trigger-' . esc_js($event_id) . '",';
-            $html .= 'onOrderComplete: function() { console.log("Eventbrite order complete!"); }';
+            $html .= 'modalTriggerElementId: triggerId,';
+            $html .= 'onOrderComplete: function() { ';
+            $html .= 'console.log("Eventbrite order complete!");';
+            $html .= 'if (triggerElement) triggerElement.focus();';
+            $html .= '}';
             $html .= '});';
-            $html .= '} else {';
+            $html .= '} else if (!widgetInitialized) {';
             $html .= 'setTimeout(initEventbriteWidget, 100);';
             $html .= '}';
+            $html .= '}';
+            $html .= 'if (triggerElement) {';
+            $html .= 'triggerElement.setAttribute("aria-busy", "true");';
+            $html .= 'triggerElement.addEventListener("keydown", function(e) {';
+            $html .= 'if (e.key === "Enter" || e.key === " ") {';
+            $html .= 'e.preventDefault();';
+            $html .= 'triggerElement.click();';
+            $html .= '}';
+            $html .= '});';
             $html .= '}';
             $html .= 'initEventbriteWidget();';
             $html .= '})();';
             $html .= '</script>';
             
         } else {
-            // Embedded widget
+            // Embedded widget with accessibility attributes
             $html .= '<div class="eventbrite-widget-container-' . esc_attr($event_id) . '" ';
             $html .= 'id="eventbrite-widget-container-' . esc_attr($event_id) . '" ';
+            $html .= 'role="region" ';
+            $html .= 'aria-label="' . esc_attr__('Eventbrite ticket purchase form', FS_EVENTBRITE_BUTTON_TEXT_DOMAIN) . '" ';
+            $html .= 'aria-busy="true" ';
             $html .= 'style="height: ' . esc_attr($options['height']) . 'px;"></div>';
             
-            // Widget initialization script
+            // Widget initialization script with accessibility enhancements
             $html .= '<script type="text/javascript">';
             $html .= '(function() {';
+            $html .= 'var containerId = "eventbrite-widget-container-' . esc_js($event_id) . '";';
+            $html .= 'var containerElement = document.getElementById(containerId);';
+            $html .= 'var widgetInitialized = false;';
             $html .= 'function initEventbriteWidget() {';
-            $html .= 'if (typeof window.EBWidgets !== "undefined") {';
+            $html .= 'if (typeof window.EBWidgets !== "undefined" && !widgetInitialized) {';
+            $html .= 'widgetInitialized = true;';
             $html .= 'window.EBWidgets.createWidget({';
             $html .= 'widgetType: "checkout",';
             $html .= 'eventId: "' . esc_js($event_id) . '",';
-            $html .= 'iframeContainerId: "eventbrite-widget-container-' . esc_js($event_id) . '",';
+            $html .= 'iframeContainerId: containerId,';
             $html .= 'iframeContainerHeight: ' . intval($options['height']) . ',';
             $html .= 'onOrderComplete: function() { console.log("Eventbrite order complete!"); }';
             $html .= '});';
-            $html .= '} else {';
+            $html .= 'if (containerElement) {';
+            $html .= 'containerElement.setAttribute("aria-busy", "false");';
+            $html .= '}';
+            $html .= '} else if (!widgetInitialized) {';
             $html .= 'setTimeout(initEventbriteWidget, 100);';
             $html .= '}';
             $html .= '}';
@@ -295,7 +337,7 @@ class FSEventbriteWidgetPlugin {
      * @since 1.0.0
      */
     private function get_error_message($message) {
-        return '<div class="eventbrite-widget-error" style="background-color: #f8d7da; color: #721c24; padding: 12px; border: 1px solid #f1aeb5; border-radius: 4px; margin: 10px 0;">' . esc_html($message) . '</div>';
+        return '<div class="eventbrite-widget-error" role="alert" aria-live="assertive" style="background-color: #f8d7da; color: #721c24; padding: 12px; border: 1px solid #f1aeb5; border-radius: 4px; margin: 10px 0;">' . esc_html($message) . '</div>';
     }
 }
 

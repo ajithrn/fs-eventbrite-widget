@@ -485,11 +485,21 @@ tail -f wp-content/debug.log
 
 6. **Create distribution ZIP**
    ```bash
-   zip -r fs-eventbrite-widget.zip . \
-     -x "*.git*" "*node_modules*" "*.DS_Store" \
-     "*package*.json" "*webpack.config.js" \
-     "*.wordpress-org*" "*DEVELOPER.md"
+   cd .. && zip -r fs-eventbrite-widget.zip fs-eventbrite-widget \
+     -x "*.git*" "*/node_modules/*" "*/.wp-env.json" \
+     "*/package.json" "*/package-lock.json" "*/webpack.config.js" \
+     "*/DEVELOPER.md" "*/README.md" "*/WORDPRESS-ORG-SUBMISSION.md" \
+     "*/blocks/*/src/*" "fs-eventbrite-widget/build/*" "*/.DS_Store" "*.zip" \
+     && mv fs-eventbrite-widget.zip fs-eventbrite-widget/
    ```
+   
+   **What this command does:**
+   - Creates zip from parent directory to include proper folder structure
+   - Includes all production files (PHP, CSS, compiled JS, readme.txt, LICENSE, etc.)
+   - Excludes development files (source files, config files, documentation)
+   - Excludes the top-level `build/` directory but keeps `blocks/*/build/` directories
+   - Moves the final zip back into the plugin directory
+  
 
 ## Resources
 

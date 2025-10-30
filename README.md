@@ -24,20 +24,29 @@ A simple, lightweight WordPress plugin to easily integrate customizable Eventbri
 - **Multiple Events** - Support unlimited Eventbrite events on the same page
 - **Accessibility Compliant** - WCAG 2.1 Level AA standards
 
-## Installation
+## Download & Installation
 
-### Via WordPress Admin
+### Latest Release
 
-1. Download the plugin ZIP file
-2. Go to **Plugins > Add New** in your WordPress admin
+Download the latest version from the [GitHub Releases](https://github.com/ajithrn/fs-eventbrite-widget/releases) page.
+
+### Installation Methods
+
+**Method 1: Via WordPress Admin (Recommended)**
+1. Download the ZIP file from [Releases](https://github.com/ajithrn/fs-eventbrite-widget/releases)
+2. Go to **Plugins > Add New** in WordPress admin
 3. Click **Upload Plugin** and select the ZIP file
 4. Click **Install Now** and then **Activate**
 
-### Manual Installation
-
-1. Download and extract the plugin files
+**Method 2: Manual Installation**
+1. Download and extract the ZIP file
 2. Upload the `fs-eventbrite-widget` folder to `/wp-content/plugins/`
-3. Activate the plugin through the **Plugins** menu in WordPress
+3. Activate the plugin through the **Plugins** menu
+
+**Method 3: Via WP-CLI**
+```bash
+wp plugin install https://github.com/ajithrn/fs-eventbrite-widget/releases/download/v2.1.0/fs-eventbrite-widget.zip --activate
+```
 
 ## Usage
 

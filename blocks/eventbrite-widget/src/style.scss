@@ -1,0 +1,29 @@
+/**
+ * Frontend styles for Eventbrite Widget block
+ *
+ * Styles that appear on both frontend and in the editor
+ */
+
+.wp-block-fluxstack-eventbrite-widget {
+	// Alignment classes
+	&.has-text-align-left {
+		text-align: left;
+	}
+
+	&.has-text-align-center {
+		text-align: center;
+	}
+
+	&.has-text-align-right {
+		text-align: right;
+	}
+
+	// Ensure proper spacing
+	margin: 20px 0;
+
+	// Widget wrapper inherits existing styles from main CSS
+	.fs-eventbrite-widget-wrapper {
+		// Styles are handled by the main plugin CSS
+		// This ensures consistency between shortcode and block
+	}
+}

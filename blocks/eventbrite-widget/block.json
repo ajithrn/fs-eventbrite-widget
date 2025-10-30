@@ -1,0 +1,165 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "fluxstack/eventbrite-widget",
+	"version": "2.0.0",
+	"title": "Eventbrite Widget",
+	"category": "fluxstack",
+	"icon": "tickets-alt",
+	"description": "Embed Eventbrite event widgets with customizable buttons or embedded checkout.",
+	"keywords": [
+		"eventbrite",
+		"tickets",
+		"events",
+		"registration",
+		"checkout"
+	],
+	"textDomain": "fs-eventbrite-widget",
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"className": true,
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"align": [
+			"left",
+			"center",
+			"right",
+			"wide",
+			"full"
+		]
+	},
+	"attributes": {
+		"eventId": {
+			"type": "string",
+			"default": ""
+		},
+		"widgetType": {
+			"type": "string",
+			"default": "modal",
+			"enum": [
+				"modal",
+				"embedded"
+			]
+		},
+		"buttonText": {
+			"type": "string",
+			"default": "Get Tickets"
+		},
+		"fontSize": {
+			"type": "string",
+			"default": "16px"
+		},
+		"fontWeight": {
+			"type": "string",
+			"default": "bold"
+		},
+		"textColor": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "#ff6600"
+		},
+		"useGradient": {
+			"type": "boolean",
+			"default": false
+		},
+		"backgroundGradient": {
+			"type": "string",
+			"default": ""
+		},
+		"borderWidth": {
+			"type": "string",
+			"default": "2px"
+		},
+		"borderStyle": {
+			"type": "string",
+			"default": "solid"
+		},
+		"borderColor": {
+			"type": "string",
+			"default": "transparent"
+		},
+		"borderRadius": {
+			"type": "string",
+			"default": "4px"
+		},
+		"paddingTop": {
+			"type": "string",
+			"default": "12px"
+		},
+		"paddingRight": {
+			"type": "string",
+			"default": "24px"
+		},
+		"paddingBottom": {
+			"type": "string",
+			"default": "12px"
+		},
+		"paddingLeft": {
+			"type": "string",
+			"default": "24px"
+		},
+		"hoverBackgroundColor": {
+			"type": "string",
+			"default": "#e55a00"
+		},
+		"hoverTextColor": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"hoverBorderColor": {
+			"type": "string",
+			"default": ""
+		},
+		"hoverTransform": {
+			"type": "string",
+			"default": "scale"
+		},
+		"transitionDuration": {
+			"type": "string",
+			"default": "300ms"
+		},
+		"buttonClass": {
+			"type": "string",
+			"default": ""
+		},
+		"buttonStyle": {
+			"type": "string",
+			"default": ""
+		},
+		"width": {
+			"type": "string",
+			"default": "100%"
+		},
+		"height": {
+			"type": "string",
+			"default": "550"
+		},
+		"containerClass": {
+			"type": "string",
+			"default": ""
+		},
+		"containerStyle": {
+			"type": "string",
+			"default": ""
+		},
+		"alignment": {
+			"type": "string",
+			"default": "left"
+		}
+	},
+	"example": {
+		"attributes": {
+			"eventId": "1234567890123",
+			"buttonText": "Register Now"
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}

@@ -1,0 +1,70 @@
+/**
+ * Editor styles for Eventbrite Widget block
+ *
+ * Styles that appear only in the block editor
+ */
+
+.wp-block-fluxstack-eventbrite-widget {
+	
+	// Preview container
+	.fs-eventbrite-widget-preview {
+		padding: 10px 0;
+		
+		button {
+			cursor: default;
+		}
+	}
+
+	// Placeholder state
+	.components-placeholder {
+		min-height: 200px;
+
+		.components-placeholder__label {
+			svg {
+				fill: #ff6600;
+			}
+		}
+	}
+}
+
+// Inspector controls styling
+.block-editor-block-inspector {
+	
+	// Color picker spacing
+	.components-color-picker {
+		margin-bottom: 16px;
+	}
+
+	// Gradient picker spacing
+	.components-gradient-picker {
+		margin-bottom: 16px;
+	}
+
+	// Notice styling
+	.components-notice {
+		margin: 12px 0;
+	}
+
+	// Button spacing
+	.components-button {
+		&.is-secondary {
+			width: 100%;
+			justify-content: center;
+		}
+	}
+}
+
+// Alignment classes
+.wp-block-fluxstack-eventbrite-widget {
+	&.has-text-align-left {
+		text-align: left;
+	}
+
+	&.has-text-align-center {
+		text-align: center;
+	}
+
+	&.has-text-align-right {
+		text-align: right;
+	}
+}

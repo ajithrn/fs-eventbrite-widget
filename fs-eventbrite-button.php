@@ -3,7 +3,7 @@
  * Plugin Name: FluxStack Eventbrite Widget
  * Plugin URI: https://ajithrn.com/
  * Description: A WordPress plugin to easily integrate customizable Eventbrite buttons and widgets with shortcode support.
- * Version: 1.2.0
+ * Version: 2.0.0
  * Author: Ajith R N
  * Author URI: https://ajithrn.com
  * License: GPL v2 or later
@@ -26,8 +26,11 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('FS_EVENTBRITE_BUTTON_VERSION', '1.2.0');
+define('FS_EVENTBRITE_BUTTON_VERSION', '2.0.0');
 define('FS_EVENTBRITE_BUTTON_TEXT_DOMAIN', 'fs-eventbrite-widget');
+
+// Load block registration class
+require_once plugin_dir_path(__FILE__) . 'includes/class-fs-eventbrite-block.php';
 
 /**
  * Main Eventbrite Button Widget Plugin Class

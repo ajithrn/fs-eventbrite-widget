@@ -4,21 +4,25 @@
 [![PHP](https://img.shields.io/badge/php-%3E%3D7.4-blue.svg)](https://php.net/)
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
-A simple, lightweight WordPress plugin to easily integrate customizable Eventbrite widgets and buttons into your WordPress site using shortcodes.
+A simple, lightweight WordPress plugin to easily integrate customizable Eventbrite widgets and buttons into your WordPress site.
 
 ## Description
 
-**FluxStack Eventbrite Widget** allows you to embed Eventbrite event widgets on your WordPress site with complete control over styling and presentation. Whether you want a simple button that opens a modal checkout or an embedded widget directly on your page, this plugin provides an easy shortcode solution.
+**FluxStack Eventbrite Widget** allows you to embed Eventbrite event widgets on your WordPress site with complete control over styling and presentation. Whether you want a simple button that opens a modal checkout or an embedded widget directly on your page, this plugin provides both a Gutenberg block and shortcode solution.
 
 ### Key Features
 
-- **Easy Shortcode Integration** - Simple `[fs_eventbrite_widget]` shortcode
+- **Gutenberg Block** - Visual block editor with live preview and comprehensive styling controls
+- **Block Variations** - Pre-configured Modal Button and Embedded Widget variations
+- **Easy Shortcode Integration** - Simple `[fs_eventbrite_widget]` shortcode for classic editor
 - **Modal & Embedded Widgets** - Choose between popup modal or inline embedded widgets  
-- **Fully Customizable Buttons** - Control button text, CSS classes, and inline styles
+- **Advanced Styling Controls** - Complete control over typography, colors, borders, spacing, and hover effects
+- **Gradient Support** - Built-in gradient picker with preset options
 - **Responsive Design** - Works on all device sizes
 - **Clean Code** - Lightweight, follows WordPress coding standards
-- **No Settings Required** - Works out of the box, configure via shortcode parameters
+- **No Settings Required** - Works out of the box, configure via block or shortcode
 - **Multiple Events** - Support unlimited Eventbrite events on the same page
+- **Accessibility Compliant** - WCAG 2.1 Level AA standards
 
 ## Installation
 
@@ -37,7 +41,47 @@ A simple, lightweight WordPress plugin to easily integrate customizable Eventbri
 
 ## Usage
 
-### Basic Usage
+### Using the Gutenberg Block (Recommended)
+
+1. **Add the Block**
+   - In the block editor, click the `+` button
+   - Search for "Eventbrite Widget"
+   - Choose a variation:
+     - **Modal Button Widget** - Shows a customizable button that opens a modal
+     - **Embedded Widget** - Embeds the checkout directly on the page
+
+2. **Configure Event Settings**
+   - Enter your Eventbrite Event ID
+   - Choose widget type (Modal or Embedded)
+
+3. **Customize Button Appearance** (Modal only)
+   - **Text & Typography**: Button text, font size, weight, and color
+   - **Background**: Solid color or gradient
+   - **Border**: Width, style, color, and radius
+   - **Spacing**: Individual padding controls for each side
+   - **Hover Effects**: Hover colors, transforms, and transition duration
+
+4. **Container Settings**
+   - Width (%, px, vw)
+   - Height (for embedded widgets)
+   - Custom CSS classes and styles
+
+5. **Advanced Options**
+   - Additional button CSS classes
+   - Custom inline styles
+
+### Block Features
+
+- **Live Preview** - See your button design in real-time
+- **Event ID Validation** - Instant feedback on valid event IDs
+- **Color Pickers** - Visual color selection with alpha support
+- **Gradient Picker** - Choose from presets or create custom gradients
+- **Unit Controls** - Flexible units (px, em, rem, %, vw)
+- **Reset to Defaults** - Quick button to restore default styling
+- **Alignment Toolbar** - Left, center, right alignment
+- **Organized Panels** - Collapsible sections for easy navigation
+
+### Using Shortcodes (Classic Editor)
 
 Add this shortcode to any post, page, or widget area:
 

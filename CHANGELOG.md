@@ -5,6 +5,50 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2025-10-30
+
+### Added
+- **Gutenberg Block Support** - Complete block editor integration with visual controls
+- **Block Variations** - Two pre-configured variations:
+  - Modal Button Widget (default)
+  - Embedded Widget
+- **Enhanced Styling Controls** - Comprehensive button customization options:
+  - Typography controls (font size, weight, color)
+  - Background controls (solid colors and gradients)
+  - Border controls (width, style, color, radius)
+  - Spacing controls (padding with individual side control)
+  - Hover effects (colors, transforms, transition duration)
+- **Visual Block Editor** - Live button preview in the editor
+- **Block Toolbar** - Quick alignment controls
+- **Inspector Controls** - Organized panels for all settings:
+  - Event Settings
+  - Button Text & Typography
+  - Background
+  - Border
+  - Spacing
+  - Hover Effects
+  - Container Settings
+  - Advanced
+- **Reset to Defaults** - Quick button to restore default styling
+- **Gradient Support** - Built-in gradient picker with preset gradients
+- **Alignment Support** - Left, center, right alignment options
+- **WordPress Coding Standards** - Full compliance with WordPress PHP and JavaScript standards
+
+### Changed
+- Updated plugin version to 2.0.0
+- Enhanced plugin architecture with separate block registration class
+- Improved code organization with dedicated `includes/` directory
+- Updated build process with webpack configuration
+
+### Technical Details
+- Dynamic block rendering via PHP `render_callback`
+- Reuses existing shortcode logic for consistency
+- Block and shortcode share the same HTML output
+- Backward compatible - existing shortcodes continue to work
+- Modern React-based block editor interface
+- SCSS for styling with separate editor and frontend styles
+- Proper asset enqueueing and dependency management
+
 ## [1.2.0] - 2025-10-30
 
 ### Added - Accessibility Improvements ♿

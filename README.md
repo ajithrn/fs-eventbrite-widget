@@ -1,4 +1,4 @@
-# FluxStack Eventbrite Integration
+# FluxStack Eventbrite Widget
 
 [![WordPress](https://img.shields.io/badge/wordpress-%3E%3D5.0-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/php-%3E%3D7.4-blue.svg)](https://php.net/)
@@ -8,11 +8,11 @@ A simple, lightweight WordPress plugin to easily integrate customizable Eventbri
 
 ## Description
 
-**FluxStack Eventbrite Integration** allows you to embed Eventbrite event widgets on your WordPress site with complete control over styling and presentation. Whether you want a simple button that opens a modal checkout or an embedded widget directly on your page, this plugin provides an easy shortcode solution.
+**FluxStack Eventbrite Widget** allows you to embed Eventbrite event widgets on your WordPress site with complete control over styling and presentation. Whether you want a simple button that opens a modal checkout or an embedded widget directly on your page, this plugin provides an easy shortcode solution.
 
 ### Key Features
 
-- **Easy Shortcode Integration** - Simple `[fs_eventbrite]` shortcode
+- **Easy Shortcode Integration** - Simple `[fs_eventbrite_widget]` shortcode
 - **Modal & Embedded Widgets** - Choose between popup modal or inline embedded widgets  
 - **Fully Customizable Buttons** - Control button text, CSS classes, and inline styles
 - **Responsive Design** - Works on all device sizes
@@ -32,7 +32,7 @@ A simple, lightweight WordPress plugin to easily integrate customizable Eventbri
 ### Manual Installation
 
 1. Download and extract the plugin files
-2. Upload the `eventbrite-button-integration` folder to `/wp-content/plugins/`
+2. Upload the `fs-eventbrite-widget` folder to `/wp-content/plugins/`
 3. Activate the plugin through the **Plugins** menu in WordPress
 
 ## Usage
@@ -42,7 +42,7 @@ A simple, lightweight WordPress plugin to easily integrate customizable Eventbri
 Add this shortcode to any post, page, or widget area:
 
 ```
-[fs_eventbrite event_id="1917376307149"]
+[fs_eventbrite_widget event_id="1917376307149"]
 ```
 
 ### Finding Your Event ID
@@ -60,7 +60,7 @@ The number `1917376307149` is your event ID.
 | `event_id` | **Required** - Your Eventbrite event ID | - | `1917376307149` |
 | `modal` | Show as modal popup (true) or embedded (false) | `true` | `modal="false"` |
 | `button_text` | Text displayed on the button | `Get Tickets` | `button_text="Register Now"` |
-| `button_class` | CSS classes for the button | `eventbrite-button` | `button_class="btn btn-primary"` |
+| `button_class` | CSS classes for the button | `fs-eventbrite-button` | `button_class="btn btn-primary"` |
 | `button_style` | Inline CSS styles for the button | - | `button_style="background: #ff6600;"` |
 | `width` | Widget container width | `100%` | `width="500px"` |
 | `height` | Height for embedded widgets (pixels) | `550` | `height="600"` |
@@ -71,38 +71,38 @@ The number `1917376307149` is your event ID.
 
 ### Modal Widget (Default)
 ```
-[fs_eventbrite event_id="1917376307149"]
+[fs_eventbrite_widget event_id="1917376307149"]
 ```
 
 ### Custom Button Text
 ```
-[fs_eventbrite event_id="1917376307149" button_text="Register Now"]
+[fs_eventbrite_widget event_id="1917376307149" button_text="Register Now"]
 ```
 
 ### Styled Button with CSS Classes
 ```
-[fs_eventbrite event_id="1917376307149" button_class="btn btn-large btn-primary" button_text="Book Your Spot"]
+[fs_eventbrite_widget event_id="1917376307149" button_class="btn btn-large btn-primary" button_text="Book Your Spot"]
 ```
 
 ### Inline Button Styling
 ```
-[fs_eventbrite event_id="1917376307149" button_style="background: linear-gradient(45deg, #667eea, #764ba2); border: none; color: white; padding: 15px 30px; border-radius: 25px; font-weight: bold; text-decoration: none;"]
+[fs_eventbrite_widget event_id="1917376307149" button_style="background: linear-gradient(45deg, #667eea, #764ba2); border: none; color: white; padding: 15px 30px; border-radius: 25px; font-weight: bold; text-decoration: none;"]
 ```
 
 ### Embedded Widget (No Modal)
 ```
-[fs_eventbrite event_id="1917376307149" modal="false" height="600"]
+[fs_eventbrite_widget event_id="1917376307149" modal="false" height="600"]
 ```
 
 ### Multiple Events on Same Page
 ```
-[fs_eventbrite event_id="1917376307149" button_text="Workshop 1"]
-[fs_eventbrite event_id="9876543210123" button_text="Workshop 2"]
+[fs_eventbrite_widget event_id="1917376307149" button_text="Workshop 1"]
+[fs_eventbrite_widget event_id="9876543210123" button_text="Workshop 2"]
 ```
 
 ### Full Customization Example
 ```
-[fs_eventbrite 
+[fs_eventbrite_widget 
     event_id="1917376307149" 
     button_text="Reserve Your Seat" 
     button_class="custom-btn large-btn" 
@@ -117,7 +117,7 @@ The number `1917376307149` is your event ID.
 ```html
 <div class="eventbrite-widget-wrapper">
     <a rel="nofollow" href="#" target="_self" 
-       class="eventbrite-button eventbrite-widget-modal-trigger-1917376307149" 
+       class="fs-eventbrite-button eventbrite-widget-modal-trigger-1917376307149" 
        id="eventbrite-widget-modal-trigger-1917376307149">
         <span>Get Tickets</span>
     </a>
@@ -138,7 +138,7 @@ The number `1917376307149` is your event ID.
 
 ### Default Button Styling
 ```css
-.eventbrite-button {
+.fs-eventbrite-button {
     display: inline-block;
     padding: 12px 24px;
     background-color: #ff6600;
@@ -149,7 +149,7 @@ The number `1917376307149` is your event ID.
     transition: background-color 0.3s ease;
 }
 
-.eventbrite-button:hover {
+.fs-eventbrite-button:hover {
     background-color: #e55a00;
     color: white;
     text-decoration: none;
@@ -158,7 +158,7 @@ The number `1917376307149` is your event ID.
 
 ### Container Styling
 ```css
-.eventbrite-widget-wrapper {
+.fs-eventbrite-widget-wrapper {
     margin: 20px 0;
 }
 
@@ -186,8 +186,8 @@ The ID is `1917376307149`.
 
 Yes! Each shortcode instance works independently. Use different event IDs:
 ```
-[fs_eventbrite event_id="1111111111111"]
-[fs_eventbrite event_id="2222222222222"]
+[fs_eventbrite_widget event_id="1111111111111"]
+[fs_eventbrite_widget event_id="2222222222222"]
 ```
 
 ### The widget isn't loading. What should I check?
@@ -195,13 +195,13 @@ Yes! Each shortcode instance works independently. Use different event IDs:
 1. Verify your event ID is correct and the event is published
 2. Check browser console for JavaScript errors  
 3. Ensure your event is set to "Public" in Eventbrite
-4. Test with a simple shortcode first: `[fs_eventbrite event_id="YOUR_ID"]`
+4. Test with a simple shortcode first: `[fs_eventbrite_widget event_id="YOUR_ID"]`
 
 ### Can I style the button with my theme's CSS?
 
 Absolutely! Use the `button_class` parameter to add your theme's button classes:
 ```
-[fs_eventbrite event_id="1917376307149" button_class="btn btn-primary btn-lg"]
+[fs_eventbrite_widget event_id="1917376307149" button_class="btn btn-primary btn-lg"]
 ```
 
 ### Does this work with caching plugins?
@@ -210,19 +210,13 @@ Yes, the plugin is compatible with most caching plugins. The Eventbrite widget J
 
 ### Can I translate the plugin?
 
-Yes, the plugin is translation-ready. The text domain is `fs-eventbrite-integration`. Default translatable strings:
+Yes, the plugin is translation-ready. The text domain is `fs-eventbrite-widget`. Default translatable strings:
 - Button text: "Get Tickets" 
 - Error message: "Error: event_id parameter is required..."
 
 ## Changelog
 
-### 1.0.0
-- Initial release
-- Basic shortcode functionality
-- Modal and embedded widget support
-- Button customization options
-- WordPress coding standards compliance
-- Security improvements and sanitization
+See [CHANGELOG.md](CHANGELOG.md) for detailed version history and release notes.
 
 ## Contributing
 
@@ -231,10 +225,9 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 ### Development Setup
 
 1. Clone the repository
-2. Install dependencies: `composer install` (if using Composer)
-3. Follow WordPress coding standards
-4. Test with different WordPress versions
-5. Submit pull request
+2. Follow WordPress coding standards
+3. Test with different WordPress versions
+4. Submit pull request
 
 ## Support
 
@@ -264,7 +257,7 @@ GNU General Public License for more details.
 ## Credits
 
 - **Author**: [Ajith R N](https://ajithrn.com)
-- **Plugin URI**: [https://ajithrn.com/plugins/fluxstack-eventbrite-integration](https://ajithrn.com/plugins/fluxstack-eventbrite-integration)
+- **Plugin URI**: [https://ajithrn.com/](https://ajithrn.com/)
 - **Eventbrite**: [https://www.eventbrite.com](https://www.eventbrite.com)
 
 ---

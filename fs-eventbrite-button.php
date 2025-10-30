@@ -1,21 +1,21 @@
 <?php
 /**
- * Plugin Name: FluxStack Eventbrite Integration
- * Plugin URI: https://ajithrn.com/plugins/fluxstack-eventbrite-integration
+ * Plugin Name: FluxStack Eventbrite Widget
+ * Plugin URI: https://ajithrn.com/
  * Description: A WordPress plugin to easily integrate customizable Eventbrite buttons and widgets with shortcode support.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Ajith R N
  * Author URI: https://ajithrn.com
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: fs-eventbrite-integration
+ * Text Domain: fs-eventbrite-widget
  * Domain Path: /languages
  * Requires at least: 5.0
  * Tested up to: 6.4
  * Requires PHP: 7.4
  * Network: false
  * 
- * @package FSEventbriteButton
+ * @package FSEventbriteWidget
  * @author Ajith R N
  * @since 1.0.0
  */
@@ -26,20 +26,20 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('FS_EVENTBRITE_BUTTON_VERSION', '1.0.0');
-define('FS_EVENTBRITE_BUTTON_TEXT_DOMAIN', 'fs-eventbrite-integration');
+define('FS_EVENTBRITE_BUTTON_VERSION', '1.1.0');
+define('FS_EVENTBRITE_BUTTON_TEXT_DOMAIN', 'fs-eventbrite-widget');
 
 /**
- * Main Eventbrite Button Integration Plugin Class
+ * Main Eventbrite Button Widget Plugin Class
  * 
  * @since 1.0.0
  */
-class FSEventbriteButtonPlugin {
+class FSEventbriteWidgetPlugin {
     
     /**
      * Plugin instance
      * 
-     * @var FSEventbriteButtonPlugin
+     * @var FSEventbriteWidgetPlugin
      * @since 1.0.0
      */
     private static $instance = null;
@@ -47,7 +47,7 @@ class FSEventbriteButtonPlugin {
     /**
      * Get plugin instance (Singleton pattern)
      * 
-     * @return FSEventbriteButtonPlugin
+     * @return FSEventbriteWidgetPlugin
      * @since 1.0.0
      */
     public static function get_instance() {
@@ -67,14 +67,23 @@ class FSEventbriteButtonPlugin {
     }
     
     /**
+     * Flag to track if shortcode is used on current page
+     * 
+     * @var bool
+     * @since 1.0.0
+     */
+    private $shortcode_used = false;
+    
+    /**
      * Initialize WordPress hooks
      * 
      * @since 1.0.0
      */
     private function init_hooks() {
         add_action('init', array($this, 'init'));
-        add_action('wp_footer', array($this, 'enqueue_eventbrite_script'));
-        add_shortcode('fs_eventbrite', array($this, 'eventbrite_widget_shortcode'));
+        add_action('wp_enqueue_scripts', array($this, 'register_scripts'));
+        add_action('wp_footer', array($this, 'enqueue_scripts'));
+        add_shortcode('fs_eventbrite_widget', array($this, 'eventbrite_widget_shortcode'));
     }
     
     /**
@@ -92,15 +101,30 @@ class FSEventbriteButtonPlugin {
     }
     
     /**
-     * Enqueue Eventbrite script if shortcode is used
+     * Register scripts
      * 
      * @since 1.0.0
      */
-    public function enqueue_eventbrite_script() {
-        global $post;
-        
-        if (is_a($post, 'WP_Post') && has_shortcode($post->post_content, 'fs_eventbrite')) {
-            echo '<script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>' . "\n";
+    public function register_scripts() {
+        // Register the external Eventbrite widgets script
+        wp_register_script(
+            'fs-eventbrite-widgets',
+            'https://www.eventbrite.com/static/widgets/eb_widgets.js',
+            array(),
+            null,
+            true
+        );
+    }
+    
+    /**
+     * Enqueue scripts if shortcode is used
+     * 
+     * @since 1.0.0
+     */
+    public function enqueue_scripts() {
+        // Only enqueue if shortcode was used on this page
+        if ($this->shortcode_used) {
+            wp_enqueue_script('fs-eventbrite-widgets');
         }
     }
     
@@ -113,6 +137,9 @@ class FSEventbriteButtonPlugin {
      * @since 1.0.0
      */
     public function eventbrite_widget_shortcode($atts, $content = '') {
+        // Set flag that shortcode is being used
+        $this->shortcode_used = true;
+        
         // Parse shortcode attributes
         $atts = shortcode_atts(
             array(
@@ -121,13 +148,13 @@ class FSEventbriteButtonPlugin {
                 'width' => '100%',
                 'height' => '550',
                 'button_text' => 'Get Tickets',
-                'button_class' => 'eventbrite-button',
+                'button_class' => 'fs-eventbrite-button',
                 'button_style' => '',
                 'container_class' => '',
                 'container_style' => ''
             ),
             $atts,
-            'fs_eventbrite'
+            'fs_eventbrite_widget'
         );
         
         // Validate event_id
@@ -192,7 +219,7 @@ class FSEventbriteButtonPlugin {
         $container_style = !empty($options['container_style']) ? $options['container_style'] . ';' : '';
         $container_style .= 'width: ' . $options['width'] . ';';
         
-        $html = '<div class="eventbrite-widget-wrapper ' . esc_attr($options['container_class']) . '" style="' . esc_attr($container_style) . '">';
+        $html = '<div class="fs-eventbrite-widget-wrapper ' . esc_attr($options['container_class']) . '" style="' . esc_attr($container_style) . '">';
         
         if ($options['modal']) {
             // Modal widget with customizable button
@@ -273,4 +300,4 @@ class FSEventbriteButtonPlugin {
 }
 
 // Initialize the plugin
-FSEventbriteButtonPlugin::get_instance();
+FSEventbriteWidgetPlugin::get_instance();
